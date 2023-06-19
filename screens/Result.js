@@ -1,14 +1,18 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { requestUserPermission } from '../utils/NotificationService';
+import { requestUserPermission, notificationListener } from '../utils/NotificationService';
+import ForegroundHandler from '../utils/ForegroundHandler';
 
 const Result = ({ navigation }) => {
     const handleSendNotification = () => {
-        requestUserPermission(); // Call the requestUserPermission function to send the push notification
+        requestUserPermission();
+        notificationListener();
+        /* ForegroundHandler(); */
     };
 
     return (
         <View style={styles.container}>
+            {/* <ForegroundHandler /> */}
             <View>
                 <Text>Result</Text>
             </View>
