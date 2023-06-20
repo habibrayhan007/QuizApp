@@ -1,6 +1,7 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 export const getFcmToken = async () => {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
     console.log(fcmToken, 'The old Token');
@@ -11,7 +12,6 @@ export const getFcmToken = async () => {
             if (newFcmToken) {
                 console.log(newFcmToken, 'The new generated token');
                 await AsyncStorage.setItem('fcmToken', newFcmToken);
-                sendNotification(newFcmToken);
             }
         } catch (error) {
             console.log(error, 'Error Raised');
@@ -26,7 +26,7 @@ export const notificationListener = async () => {
     });
 
     messaging().onMessage(async remoteMessage => {
-        console.log("Receive in foreGround", remoteMessage);
+        console.log("Message handled in the foreGround!", remoteMessage);
     })
 
     messaging()
@@ -40,25 +40,3 @@ export const notificationListener = async () => {
             }
         });
 }
-
-const sendNotification = async (token) => {
-    const message = {
-        notification: {
-            title: 'Results Notification',
-            body: 'The results have been sent to the parents.',
-        },
-        android: {
-            priority: 'high',
-            channelId: 'default',
-        },
-        data: {},
-        token: token,
-    };
-
-    try {
-        await messaging().send(message);
-        console.log('Push notification sent successfully!');
-    } catch (error) {
-        console.log('Error sending push notification:', error);
-    }
-};

@@ -1,7 +1,13 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
+import messaging from '@react-native-firebase/messaging';
 import { getFcmToken, notificationListener } from '../utils/NotificationService';
-/* import ForegroundHandler from '../utils/ForegroundHandler'; */
+
+
+// Register background handler
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('Message handled in the background!', remoteMessage);
+});
 
 const Result = ({ navigation }) => {
     const handleSendNotification = () => {
@@ -30,7 +36,7 @@ const Result = ({ navigation }) => {
                     <Text>Home</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.bottomButton} onPress={handleSendNotification}>
-                    <Text style={styles.buttonText}>Send The Results to the Parents Phone</Text>
+                    <Text style={styles.buttonText}>Generate Token</Text>
                 </TouchableOpacity>
             </View>
         </View>
