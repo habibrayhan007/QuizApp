@@ -1,18 +1,17 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { requestUserPermission, notificationListener } from '../utils/NotificationService';
-import ForegroundHandler from '../utils/ForegroundHandler';
+import { getFcmToken, notificationListener } from '../utils/NotificationService';
+/* import ForegroundHandler from '../utils/ForegroundHandler'; */
 
 const Result = ({ navigation }) => {
     const handleSendNotification = () => {
-        requestUserPermission();
+        getFcmToken();
         notificationListener();
-        /* ForegroundHandler(); */
     };
 
     return (
         <View style={styles.container}>
-            {/* <ForegroundHandler /> */}
+
             <View>
                 <Text>Result</Text>
             </View>

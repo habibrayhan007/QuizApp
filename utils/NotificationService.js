@@ -1,12 +1,7 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const requestUserPermission = async () => {
-    getFcmToken();
-
-};
-
-const getFcmToken = async () => {
+export const getFcmToken = async () => {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
     console.log(fcmToken, 'The old Token');
 
